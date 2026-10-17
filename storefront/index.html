@@ -500,8 +500,8 @@ function sell() {
     <p class="lead">กรอกข้อมูลเบื้องต้นด้านล่าง หรือส่งทาง LINE ทีมงานจะตรวจเอกสาร ประเมินราคา และลงประกาศให้</p>
     <ol class="steps">
       <li>เตรียมเอกสารสิทธิ์ เช่น โฉนด น.ส.4 จ. หรือ น.ส.3 ก. และสำเนาบัตรประชาชนของเจ้าของ</li>
-      <li>ถ่ายรูปทรัพย์อย่างน้อย 3 รูป และส่งตำแหน่งที่ตั้งให้ทีมงาน</li>
-      <li>ทีมงานจะติดต่อกลับเพื่อนัดตรวจทรัพย์และแจ้งผลการประเมิน</li>
+      <li>ถ่ายรูปทรัพย์สินอย่างน้อย 3 รูป และส่งตำแหน่งที่ตั้งให้ทีมงาน</li>
+      <li>ทีมงานจะติดต่อกลับเพื่อนัดตรวจทรัพย์สินและแจ้งผลการประเมิน</li>
     </ol>
     <div class="panel">
       <form onsubmit="sendLead(event,'sell')">
@@ -509,7 +509,7 @@ function sell() {
           <label>ชื่อ<input name="name" required></label>
           <label>เบอร์โทรศัพท์<input name="phone" inputmode="tel" required></label>
         </div>
-        <label>ประเภททรัพย์
+        <label>ประเภททรัพย์สิน
           <select name="property_type">${Object.entries(TYPE).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select>
         </label>
         <label>ทำเลที่ตั้ง<input name="location" placeholder="เช่น ซอย ถนน แขวง เขต จังหวัด"></label>
