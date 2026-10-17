@@ -197,16 +197,16 @@ footer .fb{color:#fff;font-size:17px}
 
 <script>
 const API = 'https://ty-property-api.onrender.com'; // เปลี่ยนเป็น URL ของ API บน Render
-const CONTACT = { phone: '02-000-0000', oa: '@your-line-id' }; // oa = ID ของ LINE Official Account ที่ขึ้นต้นด้วย @
+const CONTACT = { phone: '086-466-2344', oa: '@245kynxv' }; // oa = ID ของ LINE Official Account ที่ขึ้นต้นด้วย @
 const lineUrl = text => (text
   ? `https://line.me/R/oaMessage/${CONTACT.oa}/?${encodeURIComponent(text)}`
   : `https://line.me/R/ti/p/${CONTACT.oa}`);
 
 // ไอคอนโซเชียล: ใส่ลิงก์โปรไฟล์ที่คุณปักหน้าร้านไว้
 const SOCIAL = [
-  { name: 'TikTok', url: 'https://www.tiktok.com/@your-tiktok', icon: '<path d="M14 3v11.2a3.8 3.8 0 1 1-3.8-3.8"/><path d="M14 3c.4 2.6 2.2 4.3 4.8 4.5"/>' },
-  { name: 'Instagram', url: 'https://www.instagram.com/your-ig', icon: '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r=".6"/>' },
-  { name: 'Facebook', url: 'https://www.facebook.com/your-page', icon: '<path d="M14.5 21v-7h2.4l.4-3h-2.8V9.3c0-.9.3-1.5 1.5-1.5H17V5.2c-.3 0-1.2-.2-2.2-.2-2.2 0-3.7 1.3-3.7 3.8V11H9v3h2.1v7"/>' },
+  { name: 'TikTok', url: 'https://www.tiktok.com/@sekthisak_11?_r=1&_t=ZS-9AdGTCEVCgm', icon: '<path d="M14 3v11.2a3.8 3.8 0 1 1-3.8-3.8"/><path d="M14 3c.4 2.6 2.2 4.3 4.8 4.5"/>' },
+  { name: 'Instagram', url: 'https://www.instagram.com/engi.neer.0/', icon: '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r=".6"/>' },
+  { name: 'Facebook', url: 'https://www.facebook.com/share/14rgADMUZ9n/?mibextid=wwXIfr', icon: '<path d="M14.5 21v-7h2.4l.4-3h-2.8V9.3c0-.9.3-1.5 1.5-1.5H17V5.2c-.3 0-1.2-.2-2.2-.2-2.2 0-3.7 1.3-3.7 3.8V11H9v3h2.1v7"/>' },
   { name: 'YouTube', url: 'https://www.youtube.com/@your-channel', icon: '<rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="M10.5 9.5v5l4-2.5z"/>' },
   { name: 'LINE', url: lineUrl(), icon: '<path d="M12 4.5c-4.4 0-8 2.8-8 6.4 0 3.2 2.8 5.8 6.6 6.3.3.1.6.2.7.5.1.2 0 .8 0 1.1l-.2 1.1c-.1.4-.3 1.4 1.2.8 1.5-.6 8-4.7 8-9.8 0-3.6-3.6-6.4-8.3-6.4z"/>' },
 ];
