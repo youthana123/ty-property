@@ -520,9 +520,9 @@ function sellCalc(f) {
   if (!f || !out) return;
   if (commissionRate === null) { out.textContent = 'ไม่สามารถโหลดอัตราค่าบริการได้ กรุณารีเฟรชหน้า'; return; }
   const price = Number(String(f.elements.asking_price.value).replace(/\D/g, '')) || 0;
-  if (!price) { out.textContent = `ทีมงานหักค่าบริการ ${commissionRate}% จากราคาที่ตั้งขาย กรอกราคาเพื่อดูยอดที่คุณจะได้รับ`; return; }
+  if (!price) { out.textContent = `ทีมงานหักค่าดำเนินการ ${commissionRate}% จากราคาที่ตั้งขาย กรอกราคาเพื่อดูยอดที่คุณจะได้รับ`; return; }
   const fee = Math.round(price * commissionRate / 100);
-  out.innerHTML = `ราคาที่ตั้งขาย ${money(price)}<br>ค่าบริการ ${commissionRate}% (${money(fee)})<br><b>ยอดที่คุณจะได้รับ ${money(price - fee)}</b>`;
+  out.innerHTML = `ราคาที่ตั้งขาย ${money(price)}<br>ค่าดำเนินการ ${commissionRate}% (${money(fee)})<br><b>ยอดที่คุณจะได้รับ ${money(price - fee)}</b>`;
 }
 
 function sell() {
