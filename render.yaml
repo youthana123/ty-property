@@ -1,0 +1,38 @@
+databases:
+  - name: ty-property-db
+    plan: free
+    databaseName: typroperty
+    user: typroperty
+
+services:
+  - type: web
+    name: ty-property-api
+    runtime: node
+    plan: free
+    rootDir: api
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ty-property-db
+          property: connectionString
+      - key: ADMIN_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false
+
+  - type: web
+    name: ty-property-store
+    runtime: static
+    rootDir: storefront
+    buildCommand: echo "static site"
+    staticPublishPath: .
+
+  - type: web
+    name: ty-property-admin
+    runtime: static
+    rootDir: admin
+    buildCommand: echo "static site"
+    staticPublishPath: .
