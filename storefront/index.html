@@ -403,7 +403,8 @@ body:not(.ready) #app *{animation:none!important}
   <div>
     <b class="fb">TY Property Land &amp; Auction</b><br>
     <small>Real Estate &amp; Auction Service · โทร <span id="phone"></span></small><br>
-    <small><a href="#/privacy">นโยบายความเป็นส่วนตัว</a></small>
+    <small><a href="#/privacy">นโยบายความเป็นส่วนตัว</a></small><br>
+    <small><a href="#/privacy_persion">ผู้พัฒนา</a></small>
   </div>
   <div class="socials" id="socials"></div>
 </div></footer>
@@ -1061,7 +1062,17 @@ function privacy() {
     <p>กรุณาติดต่อเจ้าหน้าที่ผ่านช่องทางติดต่ออย่างเป็นทางการของ PROPERTY Land & Auction</p>
   </div>`;
 }
-
+function privacy_persion() {
+  return `<div class="page"><br>
+    <h1>ข้อมูลผู้พัฒนา</h1><br>
+    <h2>บ่าวตุง</h2>
+    <img src="https://instagram.fbkk34-3.fna.fbcdn.net/v/t51.82787-19/565205453_17985873815888275_5583706908464396113_n.jpg?stp=dst-jpg_s206x206_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=bf7eb4&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy45NjAuQzMifQ%3D%3D&_nc_ohc=nhFJ11_u0IMQ7kNvwGHVhOr&_nc_oc=Adrwu5VbeGt_pDz6z9B2FYZ6TjGqeycwVjdiCXsiuocbX4oeybNt-4zTTtWkRVb-wV4&_nc_zt=24&_nc_ht=instagram.fbkk34-3.fna&_nc_gid=kGFre5QSNRhChP8tuoSWOA&_nc_ss=7b6a8&oh=00_AQOn5pPXTZN8ZIaDL9xcHzshsudEMdTCFJmcJLmIfPKF9w&oe=6ADA8543" alt="บ่าวตุง" style="border: 1px solid "white";">
+    <p class="lead">วิศวะกร โยธา</p>
+    <h2>บ่าวอ้าย</h2>
+    <img src="https://instagram.fbkk3-1.fna.fbcdn.net/v/t51.82787-19/822919694_18343814521283366_7263948521469287620_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ZCdzBLRyHZYQ7kNvwFKvTac&_nc_oc=AdqICvlgFBPoR7ibuHk3fSduRIZfTv8eACcY6DFYzhlTRrXdUIDIst_Tw_33mGUYNyA&_nc_zt=24&_nc_ht=instagram.fbkk3-1.fna&_nc_gid=7_EwUrxnE406hSvvPtEKNg&_nc_ss=7b6a8&oh=00_AQPiulprDhtOvEEaW6zZIvVDMFdJCpBlMoJMVh8dtZtf8Q&oe=6ADA74B2" alt="บ่าวตุง" style="border: 1px solid "white";">
+    <p class="lead">วิศวะกร เมคคาทรอนิกส์</p>
+  </div>`;
+}
 function socials() {
   $('socials').innerHTML = SOCIAL.map((s, i) => `<a class="soc" style="--i:${i}" href="${esc(s.url)}" target="_blank" rel="noopener" title="${s.name}" aria-label="${s.name}"><svg viewBox="0 0 24 24">${s.icon}</svg></a>`).join('');
 }
@@ -1083,7 +1094,10 @@ function route() {
     revealOnScroll($('app'));
   } else if (h === '#/privacy') {
     $('app').innerHTML = privacy();
-  } else {
+  } 
+   else if (h === '#/privacy_persion') {
+    $('app').innerHTML = privacy_persion();
+  }else {
     $('app').innerHTML = home(h === '#/liked');
     renderRows();
     document.querySelectorAll('.stats b[data-n]').forEach(countUp);
