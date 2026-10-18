@@ -562,19 +562,7 @@ const typeBar = () => `<div class="typebar" role="group" aria-label="เลื�
 </div>`;
 
 // เครื่องคำนวณค่างวดเบื้องต้น แสดงเฉพาะทรัพย์ที่มีตัวอาคาร (ประมาณการเท่านั้น)
-const calcBox = l => `<div class="calc" data-price="${l.price}">
-  <h3 class="sub">เครื่องคำนวณค่างวดเบื้องต้น</h3>
-  <div class="calc-in">
-    <label>เงินดาวน์ (%)<input type="number" data-k="down" value="10" min="0" max="100" step="1" inputmode="decimal"></label>
-    <label>ดอกเบี้ย (% ต่อปี)<input type="number" data-k="rate" value="6.5" min="0" max="30" step="0.1" inputmode="decimal"></label>
-    <label>ระยะเวลากู้ (ปี)<input type="number" data-k="years" value="30" min="1" max="40" step="1" inputmode="numeric"></label>
-  </div>
-  <div class="calc-out">
-    <div><span>ยอดกู้โดยประมาณ</span><b data-out="loan">-</b></div>
-    <div class="pmt"><span>ค่างวดต่อเดือนโดยประมาณ</span><b data-out="pmt">-</b></div>
-  </div>
-  <small class="muted">เป็นการประมาณเท่านั้น ยอดอนุมัติจริงขึ้นกับธนาคาร</small>
-</div>`;
+
 const img = u => (u ? `background-image:url('${esc(u)}')` : '');
 const badge = l => `<span class="status s-${l.status}">${STATUS[l.status]}</span>`;
 const heart = l => `<button class="heart ${l.liked ? 'on' : ''}" aria-label="ถูกใจ" title="ถูกใจ" onclick="like(${l.id},event)">${HEART}</button>`;
@@ -763,7 +751,6 @@ function detail(id) {
         <dt>เอกสารสิทธิ์</dt><dd>${esc(l.deed_type) || '-'}</dd>
       </dl>
       <p style="white-space:pre-line">${esc(l.description)}</p>
-      ${bld ? calcBox(l) : ''}
       <div class="btns">
         <a class="btn" href="${lineUrl('สนใจ ' + l.title)}" target="_blank" rel="noopener">แชต LINE กับทีมงาน</a>
         <a class="btn line" href="tel:${CONTACT.phone}">โทรสอบถาม</a>
