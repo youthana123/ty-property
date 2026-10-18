@@ -327,6 +327,41 @@ body:not(.ready) #app *{animation:none!important}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+/* ===== ดูรูปขยาย ===== */
+.gallery{cursor:zoom-in}
+.zbtn{position:absolute;top:12px;right:12px;z-index:1;display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;background:rgba(255,255,255,.94);color:var(--ink);padding:7px 14px 7px 11px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 14px rgba(11,37,89,.18);transition:transform .2s}
+.zbtn:hover{transform:scale(1.05)}
+.zbtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.lb{position:fixed;inset:0;z-index:120;display:none;flex-direction:column;background:#06112b;color:#fff}
+.lb.open{display:flex;animation:lbIn .25s ease}
+@keyframes lbIn{from{opacity:0}to{opacity:1}}
+.lb-top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 12px}
+.lb-cnt{font-size:14px;color:rgba(255,255,255,.85);font-variant-numeric:tabular-nums}
+.lb-tools{display:flex;gap:8px}
+.lb-btn{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;display:grid;place-items:center;font-size:22px;line-height:1;cursor:pointer;padding:0;transition:background .2s}
+.lb-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.lb-btn:hover:not(:disabled){background:rgba(255,255,255,.2)}
+.lb-btn:disabled{opacity:.35;cursor:default}
+.lb-btn:focus-visible,.lb-nav:focus-visible,.lb-th:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.lb-body{position:relative;flex:1;min-height:0}
+.lb-stage{position:absolute;inset:0;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;cursor:zoom-in}
+.lb-stage.grab{cursor:grab}
+.lb-stage.grab:active{cursor:grabbing}
+.lb-img{position:absolute;left:50%;top:50%;max-width:none;max-height:none;transform:translate(-50%,-50%);opacity:0;transition:transform .3s cubic-bezier(.2,.7,.2,1),opacity .25s ease;pointer-events:none;-webkit-user-drag:none}
+.lb-img.live{transition:opacity .25s ease}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:rgba(6,16,38,.55);color:#fff;font-size:30px;line-height:1;cursor:pointer;transition:background .2s}
+.lb-nav:hover{background:rgba(6,16,38,.85)}
+.lb-nav.prev{left:12px}.lb-nav.next{right:12px}
+.lb-hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);max-width:calc(100% - 32px);padding:8px 16px;border-radius:999px;background:rgba(0,0,0,.5);font-size:13px;text-align:center;pointer-events:none;animation:lbHint 3.6s ease forwards}
+@keyframes lbHint{0%{opacity:0}12%{opacity:1}80%{opacity:1}100%{opacity:0}}
+.lb-thumbs{flex:none;display:flex;gap:8px;overflow-x:auto;padding:12px 16px calc(env(safe-area-inset-bottom,0px) + 14px)}
+.lb-thumbs:empty{display:none}
+.lb-th{flex:none;width:64px;height:48px;padding:0;border-radius:8px;border:2px solid transparent;background:#1b2a47 center/cover no-repeat;opacity:.55;cursor:pointer;transition:opacity .2s,border-color .2s}
+.lb-th:first-child{margin-left:auto}.lb-th:last-child{margin-right:auto}
+.lb-th:hover{opacity:.9}
+.lb-th.on{opacity:1;border-color:#fff}
+@media(max-width:600px){.lb-nav{width:40px;height:40px;font-size:26px}.lb-nav.prev{left:6px}.lb-nav.next{right:6px}}
+
 </style>
 </head>
 <body>
@@ -345,6 +380,24 @@ body:not(.ready) #app *{animation:none!important}
 </div></header>
 
 <main id="app"></main>
+<div id="lb" class="lb" role="dialog" aria-modal="true" aria-label="ดูรูปภาพ">
+  <div class="lb-top">
+    <span class="lb-cnt" id="lbCnt"></span>
+    <div class="lb-tools">
+      <button class="lb-btn" id="lbOut" type="button" aria-label="ซูมออก" title="ซูมออก (-)">−</button>
+      <button class="lb-btn" id="lbReset" type="button" aria-label="ขนาดปกติ" title="ขนาดปกติ (0)"><svg viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg></button>
+      <button class="lb-btn" id="lbIn" type="button" aria-label="ซูมเข้า" title="ซูมเข้า (+)">+</button>
+      <button class="lb-btn" id="lbClose" type="button" aria-label="ปิด" title="ปิด (Esc)"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+  </div>
+  <div class="lb-body">
+    <div class="lb-stage" id="lbStage"><img class="lb-img" id="lbImg" alt="" draggable="false"></div>
+    <button class="lb-nav prev" id="lbPrev" type="button" aria-label="รูปก่อนหน้า" hidden>‹</button>
+    <button class="lb-nav next" id="lbNext" type="button" aria-label="รูปถัดไป" hidden>›</button>
+    <div class="lb-hint">ดับเบิลคลิกหรือแตะสองครั้งเพื่อซูม · ลากเพื่อเลื่อนดูรูป</div>
+  </div>
+  <div class="lb-thumbs" id="lbThumbs"></div>
+</div>
 
 <footer><div class="wrap ft">
   <div>
@@ -465,7 +518,7 @@ function hero() {
   const low = open.length ? money(Math.min(...open.map(l => l.price))) : '-';
   return `<section class="hero"><div class="hero-in">
     <div>
-      <h1>ที่ดินและบ้านคัดสรร ซื้อขาย</h1>
+      <h1>ซื้อขาย ที่ดินและบ้านคัดสรร </h1>
       <p>ตรวจข้อมูลก่อนตัดสินใจ และวางเงินมัดจำผ่านบัญชีเอสโครว์ เพื่อให้ทั้งผู้ซื้อและผู้ขายปลอดภัย</p>
       <div class="stats"><div><b data-n="${open.length}">${open.length}</b><span>รายการว่างขาย</span></div><div><b>${low}</b><span>ราคาเริ่มต้น</span></div></div>
     </div>
@@ -551,8 +604,9 @@ function detail(id) {
   return `<div class="wrap">
   <div class="detail">
     <div>
-      <div class="gallery" id="main">
-        ${many ? '<button class="gnav prev" onclick="showImg(gal.i-1)" aria-label="รูปก่อนหน้า">‹</button><button class="gnav next" onclick="showImg(gal.i+1)" aria-label="รูปถัดไป">›</button>' : ''}
+      <div class="gallery" id="main" title="กดเพื่อขยายรูป" onclick="lbOpen(gal.i,this)">
+        ${many ? '<button class="gnav prev" onclick="event.stopPropagation();showImg(gal.i-1)" aria-label="รูปก่อนหน้า">‹</button><button class="gnav next" onclick="event.stopPropagation();showImg(gal.i+1)" aria-label="รูปถัดไป">›</button>' : ''}
+        ${gal.imgs[0] ? '<button class="zbtn" type="button" aria-label="ขยายรูปภาพ"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg>ขยายรูป</button>' : ''}
         <span class="cnt" id="cnt"></span>
       </div>
       ${many ? `<div class="thumbs">${gal.imgs.map((u, k) => `<div style="${img(u)}" onclick="showImg(${k})"></div>`).join('')}</div>` : ''}
@@ -617,6 +671,201 @@ function showImg(i) {
   $('cnt').textContent = n > 1 ? `${gal.i + 1} / ${n}` : '';
   document.querySelectorAll('.thumbs div').forEach((d, k) => d.classList.toggle('on', k === gal.i));
 }
+
+// ===== ดูรูปขยาย: กดรูปใหญ่หรือปุ่ม "ขยายรูป" เพื่อเปิด =====
+// ซูมด้วยปุ่ม ล้อเมาส์ ดับเบิลคลิก/แตะสองครั้ง หรือถ่างนิ้ว ลากเพื่อเลื่อนดู ปัดหรือกดลูกศรเพื่อเปลี่ยนรูป
+const LB_MAX = 5;
+let lbI = 0, lbS = 1, lbX = 0, lbY = 0, lbFw = 0, lbFh = 0, lbOpener = null, lbTap = null, lbGest = null;
+const lbPtrs = new Map();
+const lbIsOpen = () => $('lb').classList.contains('open');
+// รูปจาก Google Drive ตอนเปิดดูใช้ขนาดใหญ่ขึ้น ให้ซูมแล้วยังคมชัด (หน้ารายการยังใช้ขนาดเดิม)
+const hiRes = u => (/googleusercontent\.com\/d\//.test(u) ? u.replace(/(=[sw]\d+)?$/, '=w2048') : u);
+
+function lbOpen(i, opener) {
+  if (!gal.imgs[i]) return;
+  lbOpener = opener || null;
+  $('lbThumbs').innerHTML = gal.imgs.length > 1
+    ? gal.imgs.map((u, k) => `<button type="button" class="lb-th" data-k="${k}" aria-label="รูปที่ ${k + 1}" style="${img(u)}"></button>`).join('')
+    : '';
+  $('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  lbShow(i);
+  $('lbClose').focus({ preventScroll: true });
+}
+
+function lbClose() {
+  if (!lbIsOpen()) return;
+  $('lb').classList.remove('open');
+  document.body.style.overflow = '';
+  if (gal.imgs.length && $('main')) showImg(lbI); // ให้หน้ารายการแสดงรูปที่ดูล่าสุด
+  if (lbOpener && lbOpener.isConnected) lbOpener.focus({ preventScroll: true });
+  lbOpener = null;
+}
+
+function lbShow(i) {
+  const n = gal.imgs.length;
+  lbI = (i + n) % n;
+  lbSetZoom(1, 0, 0);
+  const src = hiRes(gal.imgs[lbI]), im = $('lbImg');
+  if (im.getAttribute('src') === src) { lbFit(); im.style.opacity = '1'; }
+  else { im.style.opacity = '0'; im.src = src; }
+  im.alt = `รูปที่ ${lbI + 1} จาก ${n}`;
+  $('lbCnt').textContent = `${lbI + 1} / ${n}`;
+  $('lbPrev').hidden = $('lbNext').hidden = n < 2;
+  document.querySelectorAll('.lb-th').forEach((b, k) => b.classList.toggle('on', k === lbI));
+  const on = document.querySelector('.lb-th.on');
+  if (on) on.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+  if (n > 1) [1, -1].forEach(d => { const u = gal.imgs[(lbI + d + n) % n]; if (u) new Image().src = hiRes(u); });
+}
+
+// คำนวณขนาดรูปให้พอดีพื้นที่แสดงผล
+function lbFit() {
+  const im = $('lbImg'), st = $('lbStage');
+  const W = st.clientWidth - 24, H = st.clientHeight - 24;
+  if (!im.naturalWidth || W <= 0 || H <= 0) return;
+  const k = Math.min(W / im.naturalWidth, H / im.naturalHeight);
+  lbFw = im.naturalWidth * k; lbFh = im.naturalHeight * k;
+  im.style.width = lbFw + 'px'; im.style.height = lbFh + 'px';
+  lbApply();
+}
+
+// จำกัดการเลื่อนไม่ให้รูปหลุดออกนอกจอ
+function lbClamp() {
+  const st = $('lbStage');
+  const mx = Math.max(0, (lbFw * lbS - st.clientWidth) / 2), my = Math.max(0, (lbFh * lbS - st.clientHeight) / 2);
+  lbX = Math.min(mx, Math.max(-mx, lbX));
+  lbY = Math.min(my, Math.max(-my, lbY));
+}
+function lbPaint() {
+  $('lbImg').style.transform = `translate(-50%,-50%) translate(${lbX}px,${lbY}px) scale(${lbS})`;
+}
+function lbUi() {
+  $('lbStage').classList.toggle('grab', lbS > 1);
+  $('lbIn').disabled = lbS >= LB_MAX;
+  $('lbOut').disabled = lbS <= 1;
+}
+function lbApply() { lbClamp(); lbPaint(); lbUi(); }
+function lbSetZoom(s, x, y) { lbS = s; lbX = x; lbY = y; lbApply(); }
+
+// ซูมโดยให้จุด (px,py) ที่อยู่ใต้เคอร์เซอร์ยังอยู่ตรงเดิม จุดอ้างอิงนับจากกลางจอ
+function lbZoomAt(ns, px, py) {
+  ns = Math.min(LB_MAX, Math.max(1, ns));
+  const r = ns / lbS;
+  lbX = px - (px - lbX) * r;
+  lbY = py - (py - lbY) * r;
+  lbS = ns;
+  if (lbS === 1) { lbX = 0; lbY = 0; }
+  lbApply();
+}
+
+// แปลงพิกัดหน้าจอ เป็นพิกัดที่นับจากกลางช่องแสดงรูป
+function lbPt(cx, cy) {
+  const r = $('lbStage').getBoundingClientRect();
+  return { x: cx - r.left - r.width / 2, y: cy - r.top - r.height / 2 };
+}
+const lbPair = () => {
+  const [a, b] = [...lbPtrs.values()];
+  return { d: Math.hypot(a.x - b.x, a.y - b.y), m: lbPt((a.x + b.x) / 2, (a.y + b.y) / 2) };
+};
+
+function lbInit() {
+  const st = $('lbStage'), im = $('lbImg');
+  im.onload = () => { lbFit(); im.style.opacity = '1'; };
+  im.onerror = () => { im.style.opacity = '1'; };
+
+  $('lbClose').addEventListener('click', lbClose);
+  $('lbPrev').addEventListener('click', () => lbShow(lbI - 1));
+  $('lbNext').addEventListener('click', () => lbShow(lbI + 1));
+  $('lbIn').addEventListener('click', () => lbZoomAt(lbS * 1.6, 0, 0));
+  $('lbOut').addEventListener('click', () => lbZoomAt(lbS / 1.6, 0, 0));
+  $('lbReset').addEventListener('click', () => lbSetZoom(1, 0, 0));
+  $('lbThumbs').addEventListener('click', e => { const b = e.target.closest('.lb-th'); if (b) lbShow(+b.dataset.k); });
+
+  st.addEventListener('pointerdown', e => {
+    if (!lbIsOpen() || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    try { st.setPointerCapture(e.pointerId); } catch (_) { /* ไม่มีผลกับการทำงาน */ }
+    lbPtrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    im.classList.add('live');
+    if (lbPtrs.size === 1) {
+      lbGest = { x0: e.clientX, y0: e.clientY, t0: Date.now(), moved: 0, dx: 0, pinch: false };
+    } else if (lbGest && lbPtrs.size === 2) {
+      const { d, m } = lbPair();
+      Object.assign(lbGest, { pinch: true, pd: d, ps: lbS, lm: m });
+    }
+  });
+
+  st.addEventListener('pointermove', e => {
+    const p = lbPtrs.get(e.pointerId), g = lbGest;
+    if (!p || !g) return;
+    const px = p.x, py = p.y;
+    p.x = e.clientX; p.y = e.clientY;
+    if (lbPtrs.size >= 2) { // ถ่างนิ้วเพื่อซูม
+      const { d, m } = lbPair();
+      lbX += m.x - g.lm.x; lbY += m.y - g.lm.y; g.lm = m;
+      lbZoomAt(g.ps * d / g.pd, m.x, m.y);
+      return;
+    }
+    g.moved = Math.max(g.moved, Math.hypot(p.x - g.x0, p.y - g.y0));
+    if (lbS > 1) { // ซูมอยู่: ลากเพื่อเลื่อนดู
+      lbX += p.x - px; lbY += p.y - py; lbApply();
+    } else if (!g.pinch) { // ยังไม่ซูม: ปัดซ้ายขวาเพื่อเปลี่ยนรูป
+      g.dx = p.x - g.x0; lbX = g.dx; lbPaint();
+    }
+  });
+
+  const up = e => {
+    if (!lbPtrs.has(e.pointerId)) return;
+    lbPtrs.delete(e.pointerId);
+    if (lbPtrs.size) return;
+    const g = lbGest; lbGest = null;
+    im.classList.remove('live');
+    if (!g) { lbApply(); return; }
+    const ended = e.type === 'pointerup';
+    if (ended && !g.pinch && lbS === 1 && Math.abs(g.dx) > 60) { lbShow(lbI + (g.dx < 0 ? 1 : -1)); return; }
+    lbApply();
+    if (!ended || g.pinch || g.moved >= 10 || Date.now() - g.t0 >= 300) return;
+    // แตะ 1 ครั้ง
+    const p = lbPt(e.clientX, e.clientY);
+    const onImg = Math.abs(p.x - lbX) <= lbFw * lbS / 2 && Math.abs(p.y - lbY) <= lbFh * lbS / 2;
+    if (!onImg) { if (lbS === 1) lbClose(); return; } // แตะพื้นที่ว่างตอนยังไม่ซูม = ปิด
+    const now = Date.now();
+    if (lbTap && now - lbTap.t < 350 && Math.hypot(p.x - lbTap.x, p.y - lbTap.y) < 40) {
+      lbTap = null;
+      lbZoomAt(lbS > 1 ? 1 : 2.5, p.x, p.y); // แตะสองครั้ง: ซูมเข้า/ออก
+    } else {
+      lbTap = { t: now, x: p.x, y: p.y };
+    }
+  };
+  st.addEventListener('pointerup', up);
+  st.addEventListener('pointercancel', up);
+
+  st.addEventListener('wheel', e => {
+    if (!lbIsOpen()) return;
+    e.preventDefault();
+    const p = lbPt(e.clientX, e.clientY);
+    lbZoomAt(lbS * Math.exp(-e.deltaY * 0.0015), p.x, p.y);
+  }, { passive: false });
+
+  document.addEventListener('keydown', e => {
+    if (!lbIsOpen()) return;
+    const k = e.key;
+    if (k === 'Escape') lbClose();
+    else if (k === 'ArrowRight') lbShow(lbI + 1);
+    else if (k === 'ArrowLeft') lbShow(lbI - 1);
+    else if (k === '+' || k === '=') lbZoomAt(lbS * 1.6, 0, 0);
+    else if (k === '-' || k === '_') lbZoomAt(lbS / 1.6, 0, 0);
+    else if (k === '0') lbSetZoom(1, 0, 0);
+    else if (k === 'Tab') { // วนโฟกัสอยู่ในหน้าดูรูป
+      const f = [...$('lb').querySelectorAll('button')].filter(b => !b.hidden && !b.disabled);
+      const n = f.length, at = f.indexOf(document.activeElement);
+      f[(at + (e.shiftKey ? n - 1 : 1) + n) % n].focus();
+    } else return;
+    e.preventDefault();
+  });
+
+  addEventListener('resize', () => { if (lbIsOpen()) lbFit(); });
+}
+lbInit();
 
 // ===== ลูกเล่น: ประกาย ข้อความเด้ง และตัวเลขวิ่งขึ้น =====
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -801,6 +1050,7 @@ function socials() {
 }
 
 function route() {
+  lbClose();
   header();
   const h = location.hash, m = h.match(/^#\/listing\/(\d+)$/);
   if (m) {
