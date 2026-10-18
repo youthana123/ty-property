@@ -362,6 +362,111 @@ body:not(.ready) #app *{animation:none!important}
 .lb-th.on{opacity:1;border-color:#fff}
 @media(max-width:600px){.lb-nav{width:40px;height:40px;font-size:26px}.lb-nav.prev{left:6px}.lb-nav.next{right:6px}}
 
+/* ===== เลือกประเภททรัพย์ได้หลายอย่าง ===== */
+.tools{flex-wrap:wrap}
+.typebar{flex-basis:100%;display:flex;gap:8px;overflow-x:auto;padding:2px 2px 4px;scrollbar-width:none}
+.typebar::-webkit-scrollbar{display:none}
+.tchip{flex:none;border:1px solid var(--line);background:#fff;color:var(--stone);padding:8px 16px;border-radius:999px;font:inherit;font-size:15px;cursor:pointer;transition:transform .25s var(--spring),background .25s,border-color .25s,color .25s,box-shadow .25s}
+.tchip:hover{transform:translateY(-1px);border-color:#c9d6ef;color:var(--ink)}
+.tchip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 8px 18px rgba(31,91,216,.25)}
+.tchip:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.rcount{color:var(--stone);font-size:14px;margin:14px 0 0;min-height:20px}
+.mixnote{margin:4px 0 0;font-size:14px}
+.cnt:empty{display:none}
+
+/* ===== เครื่องคำนวณค่างวด ===== */
+.calc{margin:22px 0 4px;background:var(--mist);border-radius:18px;padding:18px}
+.calc h3{margin:0 0 12px}
+.calc-in{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.calc-in label{display:grid;gap:4px;font-size:13px;color:var(--stone)}
+.calc-in input{font:inherit;font-size:15px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);width:100%}
+.calc-in input:focus{outline:2px solid var(--blue);outline-offset:1px;border-color:transparent}
+.calc-out{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 8px}
+.calc-out > div{background:#fff;border-radius:14px;padding:12px 14px}
+.calc-out span{display:block;font-size:13px;color:var(--stone)}
+.calc-out b{font-size:19px;font-weight:600}
+.calc-out .pmt b{color:var(--blue);font-size:22px}
+
+/* ===== ฟอร์มฝากขาย: เลือกประเภทได้หลายอย่าง ===== */
+.ptypes{border:0;padding:0;margin:0;min-width:0;display:grid;gap:8px}
+.ptypes legend{font-size:14px;color:var(--stone);padding:0;margin-bottom:6px}
+.pt-grid{display:flex;flex-wrap:wrap;gap:8px}
+.panel .pt-opt{position:relative;display:inline-block;cursor:pointer;margin:0}
+.panel .pt-opt input{position:absolute;opacity:0;width:1px;height:1px;padding:0;border:0;margin:0;pointer-events:none}
+.pt-opt span{display:inline-block;padding:8px 15px;border:1px solid var(--line);border-radius:999px;color:var(--stone);background:#fff;transition:background .2s,border-color .2s,color .2s,transform .25s var(--spring)}
+.pt-opt:hover span{transform:translateY(-1px);color:var(--ink)}
+.pt-opt input:checked + span{background:var(--blue);border-color:var(--blue);color:#fff}
+.pt-opt input:focus-visible + span{outline:2px solid var(--blue);outline-offset:2px}
+
+/* ===== หน้าผู้พัฒนา ===== */
+.page.dev{max-width:1040px}
+.dev-hero{position:relative;overflow:hidden;text-align:center;padding:64px 28px 56px;border-radius:28px;background:linear-gradient(160deg,#f4f7fc 0%,#fff 62%);border:1px solid var(--line);margin-top:24px}
+.dev-hero .kicker{display:inline-block;position:relative;font-size:13px;letter-spacing:.14em;color:var(--blue);background:#e9f0fd;padding:6px 14px;border-radius:999px;font-weight:600}
+.dev-hero h1{position:relative;margin:18px auto 12px;font-size:clamp(28px,4.4vw,44px);line-height:1.3;background:linear-gradient(90deg,var(--ink),var(--blue),#7c3aed,var(--ink));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradShift 9s ease-in-out infinite}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.dev-hero p{position:relative;max-width:36em;margin:0 auto;color:var(--stone);font-size:17px}
+.blob{position:absolute;border-radius:50%;filter:blur(40px);opacity:.5;pointer-events:none;animation:drift 14s ease-in-out infinite}
+.blob.b1{width:260px;height:260px;background:#bcd0fb;left:-70px;top:-90px}
+.blob.b2{width:230px;height:230px;background:#e4d4ff;right:-60px;bottom:-80px;animation-delay:-6s}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(18px,-14px) scale(1.06)}}
+.dev-wrap{height:100%}
+.dev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:32px}
+.dev-card{position:relative;overflow:hidden;height:100%;background:#fff;border:1px solid var(--line);border-radius:24px;padding:34px 28px 30px;text-align:center;box-shadow:var(--shadow);transition:transform .25s var(--out),box-shadow .3s;cursor:default}
+.dev-card:hover{box-shadow:0 24px 46px rgba(11,37,89,.13)}
+.dev-glow{position:absolute;inset:0;background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(31,91,216,.14),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none}
+.dev-card:hover .dev-glow{opacity:1}
+.avatar{position:relative;width:132px;height:132px;margin:0 auto 20px;border-radius:50%}
+.avatar .ring{position:absolute;inset:-6px;border-radius:50%;background:conic-gradient(var(--blue),#7c3aed,#e11d48,#f5b301,var(--blue));animation:spin 6s linear infinite;z-index:0}
+.dev-card:hover .avatar .ring{animation-duration:2.2s}
+.avatar .ini{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#dbe7ff,#efe6ff);color:var(--ink);font-family:Prompt,sans-serif;font-weight:600;font-size:30px;z-index:1;border:4px solid #fff}
+.avatar img{position:relative;z-index:2;display:block;width:100%;height:100%;border-radius:50%;object-fit:cover;border:4px solid #fff;transition:transform .45s var(--spring)}
+.dev-card:hover .avatar img{transform:scale(1.06)}
+.dev-card h2{font-size:23px;margin:0 0 8px}
+.dev-card .role{display:inline-block;background:var(--mist);color:var(--stone);padding:5px 14px;border-radius:999px;font-size:14px;margin-bottom:18px}
+.dev-card .btn.sm{margin-top:4px}
+.dev-sec{margin-top:68px}
+.dev-sec > h2{font-size:26px;text-align:center;margin:0 0 28px}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:18px}
+.feat{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;transition:transform .3s var(--out),box-shadow .3s,border-color .3s}
+.feat:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#cfdbf3}
+.feat .ico{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#e9f0fd,#f1e9ff);color:var(--blue);margin-bottom:16px;transition:transform .4s var(--spring)}
+.feat:hover .ico{transform:rotate(-8deg) scale(1.08)}
+.feat .ico svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{font-size:17px;margin:0 0 6px}
+.feat p{margin:0;color:var(--stone);font-size:15px;line-height:1.65}
+.feat.wide{grid-column:1/-1;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.feat.wide .ico{margin-bottom:0;flex:none}
+.feat.wide > div:last-child{flex:1;min-width:240px}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;text-align:center}
+.stats-row > div{background:var(--mist);border-radius:20px;padding:26px 18px}
+.stats-row b{display:block;font-family:Prompt,sans-serif;font-size:40px;font-weight:700;color:var(--blue);line-height:1.2;font-variant-numeric:tabular-nums}
+.stats-row span{color:var(--stone);font-size:14px}
+.stack{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.stack span{background:#fff;border:1px solid var(--line);padding:10px 18px;border-radius:999px;font-weight:500;animation:rise .6s var(--out) backwards;animation-delay:calc(var(--i,0) * 70ms + .15s);transition:transform .25s var(--spring),border-color .2s,color .2s}
+.stack span:hover{transform:translateY(-3px) rotate(-1.5deg);border-color:var(--blue);color:var(--blue)}
+.dev-cta{margin-top:68px;text-align:center;padding:38px 24px;border-radius:24px;background:var(--ink);color:#fff}
+.dev-cta p{margin:0 0 18px;font-size:18px;opacity:.92}
+.dev-cta .linkrow{justify-content:center;margin:0}
+.dev-cta .btn.line{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.dev-cta .btn.line:hover{background:rgba(255,255,255,.1)}
+.warn{color:var(--red)}
+
+@media(max-width:820px){
+  .typebar{grid-column:1/-1}
+  .calc-in{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .calc-in label{font-size:12px}
+  .dev-hero{padding:44px 20px 40px}
+  .stats-row{gap:10px}
+  .stats-row > div{padding:20px 10px}
+  .stats-row b{font-size:32px}
+  .stats-row span{font-size:13px}
+}
+@media(max-width:380px){
+  .calc-in{grid-template-columns:1fr}
+  .calc-out{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){.dev-hero h1,.blob{animation:none}}
+
 </style>
 </head>
 <body>
@@ -404,7 +509,8 @@ body:not(.ready) #app *{animation:none!important}
     <b class="fb">TY Property Land &amp; Auction</b><br>
     <small>Real Estate &amp; Auction Service · โทร <span id="phone"></span></small><br>
     <small><a href="#/privacy">นโยบายความเป็นส่วนตัว</a></small><br>
-    <small><a href="#/privacy_persion">ผู้พัฒนา</a></small>
+    <small><a href="#/guide">คู่มือความปลอดภัยในการซื้อขาย</a></small><br>
+    <small><a href="#/developer">ผู้พัฒนา</a></small>
   </div>
   <div class="socials" id="socials"></div>
 </div></footer>
@@ -434,12 +540,43 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const money = n => '฿' + Number(n).toLocaleString('th-TH');
 const size = l => [l.rai && `${l.rai} ไร่`, l.ngan && `${l.ngan} งาน`, l.wah && `${l.wah} ตร.ว.`].filter(Boolean).join(' ') || '-';
-const brief = l => (l.property_type === 'land'
-  ? size(l)
-  : [l.bedrooms && `${l.bedrooms} ห้องนอน`, l.bathrooms && `${l.bathrooms} ห้องน้ำ`, l.usable_sqm && `${l.usable_sqm} ตร.ม.`].filter(Boolean).join(' · ') || '-');
+// ประเภททรัพย์ของรายการ: รายการเดียวเลือกได้หลายประเภท (เช่น บ้านพร้อมที่ดิน)
+const typesOf = l => (Array.isArray(l.property_types) && l.property_types.length ? l.property_types : [l.property_type || 'land']);
+const hasLand = l => typesOf(l).includes('land');
+const hasBuilding = l => typesOf(l).some(t => t !== 'land');
+const typeNames = l => typesOf(l).map(t => TYPE[t] || TYPE.land).join(' + ');
+const sharedTypes = (a, b) => typesOf(a).filter(t => typesOf(b).includes(t)).length;
+const chip = l => typesOf(l).map(t => `<span class="chip">${TYPE[t] || TYPE.land}</span>`).join('');
+const brief = l => {
+  const parts = [];
+  if (hasLand(l) && size(l) !== '-') parts.push(size(l));
+  if (hasBuilding(l)) parts.push(l.bedrooms && `${l.bedrooms} ห้องนอน`, l.bathrooms && `${l.bathrooms} ห้องน้ำ`, l.usable_sqm && `${l.usable_sqm} ตร.ม.`);
+  return parts.filter(Boolean).join(' · ') || '-';
+};
+
+// แถบเลือกประเภท: เลือกได้หลายอย่าง กดซ้ำเพื่อยกเลิก กด "ทุกประเภท" เพื่อล้าง
+const ptSel = new Set();
+const typeBar = () => `<div class="typebar" role="group" aria-label="เลือกประเภททรัพย์ เลือกได้หลายอย่าง">
+  <button type="button" class="tchip" data-t="" aria-pressed="${ptSel.size === 0}">ทุกประเภท</button>
+  ${Object.entries(TYPE).map(([k, v]) => `<button type="button" class="tchip" data-t="${k}" aria-pressed="${ptSel.has(k)}">${v}</button>`).join('')}
+</div>`;
+
+// เครื่องคำนวณค่างวดเบื้องต้น แสดงเฉพาะทรัพย์ที่มีตัวอาคาร (ประมาณการเท่านั้น)
+const calcBox = l => `<div class="calc" data-price="${l.price}">
+  <h3 class="sub">เครื่องคำนวณค่างวดเบื้องต้น</h3>
+  <div class="calc-in">
+    <label>เงินดาวน์ (%)<input type="number" data-k="down" value="10" min="0" max="100" step="1" inputmode="decimal"></label>
+    <label>ดอกเบี้ย (% ต่อปี)<input type="number" data-k="rate" value="6.5" min="0" max="30" step="0.1" inputmode="decimal"></label>
+    <label>ระยะเวลากู้ (ปี)<input type="number" data-k="years" value="30" min="1" max="40" step="1" inputmode="numeric"></label>
+  </div>
+  <div class="calc-out">
+    <div><span>ยอดกู้โดยประมาณ</span><b data-out="loan">-</b></div>
+    <div class="pmt"><span>ค่างวดต่อเดือนโดยประมาณ</span><b data-out="pmt">-</b></div>
+  </div>
+  <small class="muted">เป็นการประมาณเท่านั้น ยอดอนุมัติจริงขึ้นกับธนาคาร</small>
+</div>`;
 const img = u => (u ? `background-image:url('${esc(u)}')` : '');
 const badge = l => `<span class="status s-${l.status}">${STATUS[l.status]}</span>`;
-const chip = l => `<span class="chip">${TYPE[l.property_type] || TYPE.land}</span>`;
 const heart = l => `<button class="heart ${l.liked ? 'on' : ''}" aria-label="ถูกใจ" title="ถูกใจ" onclick="like(${l.id},event)">${HEART}</button>`;
 const consentBox = () => `<label class="consent"><input type="checkbox" name="consent" required>
   <span>ยินยอมให้ TY Property เก็บและใช้ข้อมูลนี้เพื่อติดต่อกลับเกี่ยวกับรายการนี้เท่านั้น ตาม<a href="#/privacy" target="_blank">นโยบายความเป็นส่วนตัว</a></span></label>`;
@@ -516,7 +653,8 @@ function header() {
 
 function hero() {
   const open = listings.filter(l => l.status === 'available');
-  const low = open.length ? money(Math.min(...open.map(l => l.price))) : '-';
+  const priced = open.filter(l => l.price > 0);
+  const low = priced.length ? money(Math.min(...priced.map(l => l.price))) : '-';
   return `<section class="hero"><div class="hero-in">
     <div>
       <h1>ซื้อขาย ที่ดินและบ้านคัดสรร </h1>
@@ -533,11 +671,8 @@ function home(liked) {
     : hero();
   return `${top}<div class="wrap">
     <div class="tools">
+      ${typeBar()}
       <input id="q" type="search" placeholder="ค้นหาทำเลหรือชื่อประกาศ" oninput="renderRows()">
-      <select id="pt" onchange="renderRows()">
-        <option value="">ทุกประเภท</option>
-        ${Object.entries(TYPE).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}
-      </select>
       <select id="pr" onchange="renderRows()">
         <option value="">ทุกช่วงราคา</option><option value="1">ไม่เกิน 5 ล้าน</option>
         <option value="2">5 ถึง 20 ล้าน</option><option value="3">20 ถึง 100 ล้าน</option><option value="4">มากกว่า 100 ล้าน</option>
@@ -550,16 +685,17 @@ function home(liked) {
         <option value="new">ใหม่ล่าสุด</option><option value="low">ราคาต่ำไปสูง</option><option value="high">ราคาสูงไปต่ำ</option>
       </select>
     </div>
+    <p class="rcount" id="rcount"></p>
     <div class="list" id="rows"></div>
   </div>`;
 }
 
 function renderRows() {
-  const q = $('q').value.trim().toLowerCase(), pt = $('pt').value, pr = $('pr').value, st = $('st').value, so = $('so').value;
+  const q = $('q').value.trim().toLowerCase(), pr = $('pr').value, st = $('st').value, so = $('so').value;
   const liked = location.hash === '#/liked';
   const items = listings.filter(l =>
     (!st || l.status === st) &&
-    (!pt || l.property_type === pt) &&
+    (!ptSel.size || typesOf(l).some(t => ptSel.has(t))) &&
     (!pr || (l.price >= PRICE[pr][0] && l.price < PRICE[pr][1])) &&
     (!liked || l.liked) &&
     (l.title + ' ' + l.location).toLowerCase().includes(q));
@@ -568,6 +704,7 @@ function renderRows() {
   let empty = 'ไม่พบรายการที่ตรงกับเงื่อนไข ลองเปลี่ยนคำค้นหรือตัวกรอง';
   if (liked) empty = me ? 'ยังไม่มีรายการที่ถูกใจ กดหัวใจที่รายการที่สนใจได้เลย'
     : `เข้าสู่ระบบด้วย Google เพื่อดูรายการที่ถูกใจที่บันทึกไว้ <a href="${LOGIN_URL}">เข้าสู่ระบบ</a>`;
+  if ($('rcount')) $('rcount').textContent = liked ? '' : `พบ ${items.length} รายการ`;
   $('rows').innerHTML = items.length ? items.map((l, i) => row(l, i)).join('') : `<p class="empty">${empty}</p>`;
   hydrate($('rows'));
 }
@@ -590,16 +727,18 @@ function detail(id) {
   gal = { imgs: l ? (l.images.length ? l.images : ['']) : [], i: 0 };
   if (!l) return '<div class="wrap"><p class="empty">ไม่พบรายการนี้ <a href="#/">กลับไปดูรายการทั้งหมด</a></p></div>';
 
-  const land = l.property_type === 'land';
+  const land = hasLand(l), bld = hasBuilding(l);
   const wah = l.rai * 400 + l.ngan * 100 + l.wah;
-  const specs = land
-    ? [['ขนาดที่ดิน', size(l)], ['ราคาเฉลี่ยต่อ ตร.ว.', wah ? money(Math.round(l.price / wah)) : '-']]
-    : [['ห้องนอน', l.bedrooms || '-'], ['ห้องน้ำ', l.bathrooms || '-'], ['พื้นที่ใช้สอย', l.usable_sqm ? `${l.usable_sqm} ตร.ม.` : '-'], ['ขนาดที่ดิน', size(l)]];
+  const specs = [];
+  if (land) specs.push(['ขนาดที่ดิน', size(l)]);
+  if (bld) specs.push(['ห้องนอน', l.bedrooms || '-'], ['ห้องน้ำ', l.bathrooms || '-'], ['พื้นที่ใช้สอย', l.usable_sqm ? `${l.usable_sqm} ตร.ม.` : '-']);
+  if (bld && !land && size(l) !== '-') specs.push(['ขนาดที่ดิน', size(l)]);
+  if (land && !bld && wah) specs.push(['ราคาเฉลี่ยต่อ ตร.ว.', money(Math.round(l.price / wah))]);
   const map = l.map_url || `https://www.google.com/maps/search/${encodeURIComponent(l.location)}`;
   const many = gal.imgs.length > 1;
   const others = listings
     .filter(x => x.id !== l.id && x.status !== 'sold')
-    .sort((a, b) => (a.property_type === l.property_type ? 0 : 1) - (b.property_type === l.property_type ? 0 : 1))
+    .sort((a, b) => sharedTypes(b, l) - sharedTypes(a, l))
     .slice(0, 3);
 
   return `<div class="wrap">
@@ -616,13 +755,15 @@ function detail(id) {
       <div class="row-top">${badge(l)}${heart(l)}</div>
       <h1 class="ttl">${esc(l.title)}</h1>
       <div class="price big">${money(l.price)}</div>
+      ${land && bld ? '<p class="muted mixnote">ราคารวมทั้งบ้านและที่ดิน</p>' : ''}
       <div class="specs">${specs.map(([k, v]) => `<div><b>${esc(v)}</b><span>${k}</span></div>`).join('')}</div>
       <dl>
-        <dt>ประเภท</dt><dd>${TYPE[l.property_type] || TYPE.land}</dd>
+        <dt>ประเภท</dt><dd>${esc(typeNames(l))}</dd>
         <dt>ทำเล</dt><dd>${esc(l.location)}</dd>
         <dt>เอกสารสิทธิ์</dt><dd>${esc(l.deed_type) || '-'}</dd>
       </dl>
       <p style="white-space:pre-line">${esc(l.description)}</p>
+      ${bld ? calcBox(l) : ''}
       <div class="btns">
         <a class="btn" href="${lineUrl('สนใจ ' + l.title)}" target="_blank" rel="noopener">แชต LINE กับทีมงาน</a>
         <a class="btn line" href="tel:${CONTACT.phone}">โทรสอบถาม</a>
@@ -947,6 +1088,9 @@ async function sendLead(e, kind) {
   const f = e.target, out = f.querySelector('.fmsg'), btn = f.querySelector('button.btn');
   if (!me) return needLogin('ส่งข้อมูล');
   const data = Object.fromEntries(new FormData(f));
+  delete data.ptype;
+  data.property_types = [...f.querySelectorAll('input[name="ptype"]:checked')].map(i => i.value);
+  if (kind === 'sell' && !data.property_types.length) { out.textContent = 'กรุณาเลือกประเภททรัพย์สินอย่างน้อย 1 ประเภท'; return; }
   data.kind = kind;
   data.consent = f.elements.consent.checked;
   const label = btn.textContent;
@@ -1004,7 +1148,7 @@ function sell() {
     <h1>ฝากขายที่ดินหรือบ้านกับ TY Property</h1>
     <p class="lead">กรอกข้อมูลเบื้องต้นด้านล่าง หรือส่งทาง LINE ทีมงานจะตรวจเอกสาร ประเมินราคา และลงประกาศให้</p>
     <ol class="steps">
-      <li>ลงประกาศขายที่ดิน พร้อมระบุราคา เนื้อที่ และทำเล</li>
+      <li>ลงประกาศขายที่ดินหรือบ้าน พร้อมระบุราคา เนื้อที่ และทำเล</li>
       <li>ส่งข้อมูลเพื่อให้ทีมงานตรวจสอบก่อนเผยแพร่ประกาศ</li>
       <li>รับการติดต่อจากผู้สนใจและนัดหมายเข้าชมที่ดิน</li>
       <li>เจรจาราคาและจัดทำสัญญาซื้อขาย</li>
@@ -1016,9 +1160,10 @@ function sell() {
           <label>ชื่อ<input name="name" required></label>
           <label>เบอร์โทรศัพท์<input name="phone" inputmode="tel" required></label>
         </div>
-        <label>ประเภททรัพย์สิน
-          <select name="property_type">${Object.entries(TYPE).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select>
-        </label>
+        <fieldset class="ptypes">
+          <legend>ประเภททรัพย์สิน <small class="muted">(เลือกได้มากกว่า 1 เช่น บ้านพร้อมที่ดิน)</small></legend>
+          <div class="pt-grid">${Object.entries(TYPE).map(([k, v]) => `<label class="pt-opt"><input type="checkbox" name="ptype" value="${k}"><span>${v}</span></label>`).join('')}</div>
+        </fieldset>
         <label>ทำเลที่ตั้ง<input name="location" placeholder="เช่น ซอย ถนน แขวง เขต จังหวัด"></label>
         <label>ราคาที่ต้องการขาย (บาท)<input name="asking_price" inputmode="numeric" placeholder="เช่น 5000000" required oninput="sellCalc(this.form)"></label>
         <div class="sell-calc" id="sellCalc"></div>
@@ -1037,12 +1182,27 @@ function sell() {
 function privacy() {
   return `<div class="page">
     <h1>นโยบายความเป็นส่วนตัว</h1>
-    <p class="lead">TY Property Land &amp; Auction ใเพื่อให้การซื้อขายที่ดินเป็นไปอย่างโปร่งใสและลดความเสี่ยงในการทำธุรกรรม บริษัทขอแนะนำให้ผู้ซื้อและผู้ขายศึกษารายละเอียดและปฏิบัติตามแนวทางดังต่อไปนี้</p>
+    <p class="lead">TY Property Land &amp; Auction ให้ความสำคัญกับข้อมูลส่วนบุคคลของคุณ</p>
+    <h3 class="sub">ข้อมูลที่เราเก็บ</h3>
+    <p>เมื่อเข้าสู่ระบบด้วย Google เราได้รับชื่อ รูปโปรไฟล์ และรหัสบัญชี Google ของคุณ เพื่อผูกรายการที่ถูกใจกับบัญชีของคุณ และเมื่อส่งคำขอ เราเก็บชื่อ เบอร์โทรศัพท์ ทำเล และข้อความที่คุณกรอก</p>
+    <h3 class="sub">วัตถุประสงค์การใช้ข้อมูล</h3>
+    <p>ใช้เพื่อติดต่อกลับเกี่ยวกับทรัพย์ที่คุณสนใจหรือคำขอฝากขาย และเพื่อให้บริการบนเว็บไซต์นี้</p>
+    <h3 class="sub">สิทธิ์ของคุณ</h3>
+    <p>คุณขอเข้าถึง แก้ไข หรือขอให้ลบข้อมูลของคุณได้ โดยติดต่อทีมงานทาง LINE หรือโทร ${esc(CONTACT.phone)}</p>
+    <h3 class="sub">การยินยอม</h3>
+    <p>การส่งแบบฟอร์มที่มีช่องยินยอมถือว่าคุณยินยอมให้เก็บและใช้ข้อมูลตามวัตถุประสงค์ข้างต้น คุณถอนความยินยอมได้ทุกเมื่อโดยติดต่อทีมงาน</p>
+  </div>`;
+}
+
+function guide() {
+  return `<div class="page">
+    <h1>คู่มือความปลอดภัยในการซื้อขาย</h1>
+    <p class="lead">TY Property Land &amp; Auction เพื่อให้การซื้อขายที่ดินเป็นไปอย่างโปร่งใสและลดความเสี่ยงในการทำธุรกรรม บริษัทขอแนะนำให้ผู้ซื้อและผู้ขายศึกษารายละเอียดและปฏิบัติตามแนวทางดังต่อไปนี้</p>
     <h3 class="sub">1. ตรวจสอบข้อมูลที่ดินก่อนตัดสินใจ</h3>
     <p>ผู้ซื้อควรตรวจสอบตำแหน่งที่ตั้ง เนื้อที่ แนวเขต ทางเข้าออก สภาพพื้นที่ และเอกสารสิทธิ์ของที่ดินกับหน่วยงานที่เกี่ยวข้องก่อนตัดสินใจซื้อ ไม่ควรพิจารณาจากรูปภาพหรือข้อมูลในประกาศเพียงอย่างเดียว</p>
     <h3 class="sub">2. ตรวจสอบเอกสารสิทธิ์และผู้มีอำนาจขาย</h3>
     <p>ควรตรวจสอบเอกสารสิทธิ์ ชื่อผู้ถือกรรมสิทธิ์ ภาระจำนอง การอายัด สิทธิของบุคคลอื่น และข้อจำกัดทางกฎหมายที่เกี่ยวข้อง โดยสอบถามสำนักงานที่ดินหรือผู้เชี่ยวชาญตามความเหมาะสม</p>
-    <h3 class="sub">ระมัดระวังการชำระเงินและเงินมัดจำ</h3>
+    <h3 class="sub">3. ระมัดระวังการชำระเงินและเงินมัดจำ</h3>
     <p>ผู้ซื้อควรตรวจสอบตัวตนของผู้รับเงินและยืนยันเงื่อนไขการชำระเงินก่อนโอนเงินทุกครั้ง ควรมีหลักฐานการชำระเงินและสัญญาหรือข้อตกลงเป็นลายลักษณ์อักษร หลีกเลี่ยงการโอนเงินให้บุคคลที่ไม่สามารถยืนยันตัวตนหรือสิทธิในการรับเงินได้</p>
     <h3 class="sub">4. ทำข้อตกลงซื้อขายให้ชัดเจน</h3>
     <p>ควรระบุราคาซื้อขาย จำนวนเงินมัดจำ กำหนดเวลาชำระเงิน วันโอนกรรมสิทธิ์ ความรับผิดชอบค่าธรรมเนียมและภาษี ตลอดจนเงื่อนไขกรณีผิดสัญญาหรือยกเลิกการซื้อขายให้ชัดเจนก่อนลงนาม</p>
@@ -1053,26 +1213,126 @@ function privacy() {
      <h3 class="sub">7. ระมัดระวังการหลอกลวง</h3>
     <p>ควรตรวจสอบตัวตนของคู่สัญญา ไม่เปิดเผยรหัสผ่านหรือรหัส OTP ไม่กดลิงก์ที่ไม่น่าเชื่อถือ และไม่ชำระเงินเพียงเพราะได้รับข้อความเร่งรัดให้โอนเงิน</p>
      <h3 class="sub">8. การให้บริการของแพลตฟอร์ม</h3>
-    <p>PROPERTY Land & Auction เป็นแพลตฟอร์มสำหรับเผยแพร่ข้อมูลและสนับสนุนการติดต่อซื้อขายที่ดินตามขอบเขตการให้บริการที่กำหนด ผู้ซื้อและผู้ขายควรตรวจสอบข้อมูลและเงื่อนไขที่เกี่ยวข้องด้วยตนเองก่อนทำธุรกรรม ทั้งนี้ บทบาทและความรับผิดชอบของแพลตฟอร์มให้เป็นไปตามข้อกำหนดการใช้บริการและกฎหมายที่เกี่ยวข้อง</p>
+    <p>TY Property Land &amp; Auction เป็นแพลตฟอร์มสำหรับเผยแพร่ข้อมูลและสนับสนุนการติดต่อซื้อขายที่ดินตามขอบเขตการให้บริการที่กำหนด ผู้ซื้อและผู้ขายควรตรวจสอบข้อมูลและเงื่อนไขที่เกี่ยวข้องด้วยตนเองก่อนทำธุรกรรม ทั้งนี้ บทบาทและความรับผิดชอบของแพลตฟอร์มให้เป็นไปตามข้อกำหนดการใช้บริการและกฎหมายที่เกี่ยวข้อง</p>
      <h3 class="sub">9. การโอนกรรมสิทธิ์</h3>
     <p>การซื้อขายที่ดินควรดำเนินการโอนกรรมสิทธิ์ ณ สำนักงานที่ดินที่มีอำนาจ โดยตรวจสอบเอกสารและยืนยันการชำระเงินตามข้อตกลงก่อนดำเนินการให้แล้วเสร็จ</p>
-    <h3 style="color: red;" class="sub">คำเตือน</h3>
+    <h3 class="sub warn">คำเตือน</h3>
     <p>อย่าเพิ่งชำระเงินมัดจำหรือเงินเต็มจำนวน หากยังไม่ได้ตรวจสอบเอกสารสิทธิ์ ตัวตนของผู้ขาย และเงื่อนไขการซื้อขายอย่างเพียงพอ</p>
     <h3 class="sub">หากต้องการสอบถามข้อมูลเพิ่มเติม</h3>
-    <p>กรุณาติดต่อเจ้าหน้าที่ผ่านช่องทางติดต่ออย่างเป็นทางการของ PROPERTY Land & Auction</p>
+    <p>กรุณาติดต่อเจ้าหน้าที่ผ่านช่องทางติดต่ออย่างเป็นทางการของ TY Property Land &amp; Auction</p>
   </div>`;
 }
-function privacy_persion() {
-  return `<div class="page"><br>
-    <h1>ข้อมูลผู้พัฒนา</h1><br>
-    <h2>บ่าวตุง</h2>
-    <img src="https://instagram.fbkk34-3.fna.fbcdn.net/v/t51.82787-19/565205453_17985873815888275_5583706908464396113_n.jpg?stp=dst-jpg_s206x206_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=bf7eb4&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy45NjAuQzMifQ%3D%3D&_nc_ohc=nhFJ11_u0IMQ7kNvwGHVhOr&_nc_oc=Adrwu5VbeGt_pDz6z9B2FYZ6TjGqeycwVjdiCXsiuocbX4oeybNt-4zTTtWkRVb-wV4&_nc_zt=24&_nc_ht=instagram.fbkk34-3.fna&_nc_gid=kGFre5QSNRhChP8tuoSWOA&_nc_ss=7b6a8&oh=00_AQOn5pPXTZN8ZIaDL9xcHzshsudEMdTCFJmcJLmIfPKF9w&oe=6ADA8543" alt="บ่าวตุง" style="border: 1px solid "white";">
-    <p class="lead">วิศวะกร โยธา</p>
-    <h2>บ่าวอ้าย</h2>
-    <img src="https://instagram.fbkk3-1.fna.fbcdn.net/v/t51.82787-19/822919694_18343814521283366_7263948521469287620_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ZCdzBLRyHZYQ7kNvwFKvTac&_nc_oc=AdqICvlgFBPoR7ibuHk3fSduRIZfTv8eACcY6DFYzhlTRrXdUIDIst_Tw_33mGUYNyA&_nc_zt=24&_nc_ht=instagram.fbkk3-1.fna&_nc_gid=7_EwUrxnE406hSvvPtEKNg&_nc_ss=7b6a8&oh=00_AQPiulprDhtOvEEaW6zZIvVDMFdJCpBlMoJMVh8dtZtf8Q&oe=6ADA74B2" alt="บ่าวตุง" style="border: 1px solid "white";">
-    <p class="lead">วิศวะกร เมคคาทรอนิกส์</p>
+
+// ทีมงานในหน้าผู้พัฒนา: วางรูปไว้ที่ storefront/team/ (ชื่อไฟล์ตามด้านล่าง) ถ้าไม่มีรูปจะแสดงตัวอักษรย่อแทน
+const TEAM = [
+  { name: 'บ่าวตุง', role: 'วิศวกรโยธา', ini: 'ตุง', photo: 'team/tung.jpg', backup: 'https://instagram.fbkk34-3.fna.fbcdn.net/v/t51.82787-19/565205453_17985873815888275_5583706908464396113_n.jpg?stp=dst-jpg_s206x206_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=bf7eb4&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy45NjAuQzMifQ%3D%3D&_nc_ohc=nhFJ11_u0IMQ7kNvwGHVhOr&_nc_oc=Adrwu5VbeGt_pDz6z9B2FYZ6TjGqeycwVjdiCXsiuocbX4oeybNt-4zTTtWkRVb-wV4&_nc_zt=24&_nc_ht=instagram.fbkk34-3.fna&_nc_gid=kGFre5QSNRhChP8tuoSWOA&_nc_ss=7b6a8&oh=00_AQOn5pPXTZN8ZIaDL9xcHzshsudEMdTCFJmcJLmIfPKF9w&oe=6ADA8543' },
+  { name: 'บ่าวอ้าย', role: 'วิศวกรเมคคาทรอนิกส์', ini: 'อ้าย', photo: 'team/ai.jpg', backup: 'https://instagram.fbkk3-1.fna.fbcdn.net/v/t51.82787-19/822919694_18343814521283366_7263948521469287620_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ZCdzBLRyHZYQ7kNvwFKvTac&_nc_oc=AdqICvlgFBPoR7ibuHk3fSduRIZfTv8eACcY6DFYzhlTRrXdUIDIst_Tw_33mGUYNyA&_nc_zt=24&_nc_ht=instagram.fbkk3-1.fna&_nc_gid=7_EwUrxnE406hSvvPtEKNg&_nc_ss=7b6a8&oh=00_AQPiulprDhtOvEEaW6zZIvVDMFdJCpBlMoJMVh8dtZtf8Q&oe=6ADA74B2' },
+];
+const TECH = ['Node.js', 'Express', 'PostgreSQL', 'Google Sign-in', 'Render', 'Google Drive'];
+const FEATS = [
+  { ico: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>', t: 'ค้นหาและกรองได้หลายแบบ', d: 'ค้นหาจากทำเลหรือชื่อประกาศ กรองตามประเภท ช่วงราคา และสถานะ เรียงตามราคาได้' },
+  { ico: '<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/>', t: 'หลายประเภทในรายการเดียว', d: 'บ้านพร้อมที่ดินหรือทาวน์โฮมพร้อมที่ดิน แสดงทั้งขนาดที่ดินและรายละเอียดตัวบ้าน' },
+  { ico: '<rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-6 6"/>', t: 'ดูรูปเต็มจอ ซูมได้', d: 'กดรูปเพื่อขยาย ซูมด้วยปุ่ม ล้อเมาส์ หรือนิ้ว ลากเลื่อนดู และปัดเปลี่ยนรูปได้' },
+  { ico: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/>', t: 'คำนวณค่างวดเบื้องต้น', d: 'ปรับเงินดาวน์ ดอกเบี้ย และระยะเวลากู้ เพื่อดูค่างวดโดยประมาณทันที' },
+  { ico: '<path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/>', t: 'ฝากขายพร้อมดูยอดที่ได้รับ', d: 'กรอกราคาที่ต้องการขาย ระบบแสดงค่าบริการและยอดที่ผู้ขายจะได้รับทันที' },
+  { ico: '<path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/>', t: 'ถูกใจ แชร์ และแชตทันที', d: 'บันทึกรายการที่สนใจไว้ดูภายหลัง ส่งลิงก์ทาง LINE หรือเปิดแชตกับทีมงานพร้อมชื่อรายการ' },
+  { ico: '<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/>', t: 'ยินยอมตาม PDPA', wide: true, d: 'ทุกแบบฟอร์มมีช่องยินยอมก่อนส่งข้อมูล และมีหน้านโยบายความเป็นส่วนตัวให้อ่านก่อนตัดสินใจ' },
+];
+
+function developer() {
+  return `<div class="page dev">
+    <section class="dev-hero">
+      <span class="blob b1"></span><span class="blob b2"></span>
+      <span class="kicker">ทีมผู้พัฒนา</span>
+      <h1>ผู้ก่อตั้งเว็บไซต์ <br>ของ TY Property</h1>
+    </section>
+
+    <div class="dev-grid">
+      ${TEAM.map((m, i) => `<div class="dev-wrap" style="--d:${i}">
+        <article class="dev-card">
+          <div class="dev-glow"></div>
+          <div class="avatar">
+            <span class="ring"></span>
+            <span class="ini">${esc(m.ini)}</span>
+            <img src="${esc(m.photo)}" data-backup="${esc(m.backup)}" alt="${esc(m.name)}" onerror="teamImg(this)">
+          </div>
+          <h2>${esc(m.name)}</h2>
+          <span class="role">${esc(m.role)}</span>
+          <div><a class="btn line sm" href="${lineUrl('สอบถามทีมพัฒนา')}" target="_blank" rel="noopener">แชต LINE กับทีมงาน</a></div>
+        </article>
+      </div>`).join('')}
+    </div>
+
+    <div class="dev-cta dev-wrap">
+      <p>มีข้อเสนอแนะหรืออยากให้เพิ่มฟีเจอร์ใหม่? ส่งมาคุยกับทีมงานได้เลย</p>
+      <div class="linkrow">
+        <a class="btn" href="${lineUrl('ข้อเสนอแนะเกี่ยวกับเว็บไซต์')}" target="_blank" rel="noopener">ส่งข้อเสนอแนะทาง LINE</a>
+        <a class="btn line" href="tel:${CONTACT.phone}">โทร ${esc(CONTACT.phone)}</a>
+      </div>
+    </div>
   </div>`;
 }
+
+// รูปสำรองจาก Instagram (มีอายุจำกัด) ถ้ารูปหลักไม่มีจะลองรูปสำรอง ถ้าไม่มีอีกก็ให้เห็นตัวอักษรย่อ
+function teamImg(el) {
+  if (el.dataset.backup && el.src !== el.dataset.backup) { el.src = el.dataset.backup; return; }
+  el.remove();
+}
+
+// เอฟเฟกต์หน้าผู้พัฒนา: เงาแสงตามเคอร์เซอร์ การเอียงการ์ด ตัวเลขวิ่งเมื่อเลื่อนมาถึง และประกายเมื่อคลิก
+function devInit(root) {
+  if (!reduceMotion() && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(en => {
+      if (en.isIntersecting) { countUp(en.target); io.unobserve(en.target); }
+    }), { threshold: 0.6 });
+    root.querySelectorAll('.stats-row b[data-n]').forEach(b => io.observe(b));
+  }
+  if (!matchMedia('(pointer: fine)').matches || reduceMotion()) return;
+  root.querySelectorAll('.dev-card').forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+      card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+      card.style.transform = `perspective(900px) rotateX(${((0.5 - y) * 8).toFixed(2)}deg) rotateY(${((x - 0.5) * 10).toFixed(2)}deg) translateY(-4px)`;
+    });
+    card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+  });
+}
+document.addEventListener('click', e => {
+  const card = e.target.closest && e.target.closest('.dev-card');
+  if (card && !e.target.closest('a')) sparkle(card.querySelector('.avatar'), 14);
+});
+
+function calcUpdate(box) {
+  const v = k => Math.max(0, Number(box.querySelector(`[data-k="${k}"]`).value) || 0);
+  const price = Number(box.dataset.price) || 0;
+  const loan = Math.round(price * (1 - Math.min(100, v('down')) / 100));
+  const r = v('rate') / 100 / 12, n = Math.min(40, Math.max(1, v('years'))) * 12;
+  const pmt = Math.round(r === 0 ? loan / n : loan * r / (1 - Math.pow(1 + r, -n)));
+  const loanEl = box.querySelector('[data-out="loan"]'), pmtEl = box.querySelector('[data-out="pmt"]');
+  tween(loanEl, loan, Number(loanEl.dataset.v) || 0); loanEl.dataset.v = loan;
+  tween(pmtEl, pmt, Number(pmtEl.dataset.v) || 0); pmtEl.dataset.v = pmt;
+}
+
+// ปุ่มประเภทและเครื่องคำนวณ ทำงานผ่านการกำกับทั้งหน้า จึงใช้ได้แม้หน้าถูกวาดใหม่
+function uiInit() {
+  document.addEventListener('click', e => {
+    const b = e.target.closest && e.target.closest('.typebar .tchip');
+    if (!b) return;
+    const t = b.dataset.t;
+    if (!t) ptSel.clear(); else if (ptSel.has(t)) ptSel.delete(t); else ptSel.add(t);
+    document.querySelectorAll('.typebar .tchip').forEach(x =>
+      x.setAttribute('aria-pressed', String(x.dataset.t ? ptSel.has(x.dataset.t) : ptSel.size === 0)));
+    renderRows();
+    pop(b, 'bump');
+  });
+  document.addEventListener('input', e => {
+    const c = e.target.closest && e.target.closest('.calc');
+    if (c) calcUpdate(c);
+  });
+}
+uiInit();
+
 function socials() {
   $('socials').innerHTML = SOCIAL.map((s, i) => `<a class="soc" style="--i:${i}" href="${esc(s.url)}" target="_blank" rel="noopener" title="${s.name}" aria-label="${s.name}"><svg viewBox="0 0 24 24">${s.icon}</svg></a>`).join('');
 }
@@ -1084,6 +1344,7 @@ function route() {
   if (m) {
     $('app').innerHTML = detail(m[1]);
     if (gal.imgs.length) showImg(0);
+    document.querySelectorAll('.calc').forEach(calcUpdate);
     const l = listings.find(x => x.id == m[1]);
     const big = $('app').querySelector('.big');
     if (l && big) tween(big, l.price, 0);
@@ -1094,10 +1355,14 @@ function route() {
     revealOnScroll($('app'));
   } else if (h === '#/privacy') {
     $('app').innerHTML = privacy();
-  } 
-   else if (h === '#/privacy_persion') {
-    $('app').innerHTML = privacy_persion();
-  }else {
+  } else if (h === '#/guide') {
+    $('app').innerHTML = guide();
+    revealOnScroll($('app'));
+  } else if (h === '#/developer' || h === '#/privacy_persion') {
+    $('app').innerHTML = developer();
+    devInit($('app'));
+    revealOnScroll($('app'));
+  } else {
     $('app').innerHTML = home(h === '#/liked');
     renderRows();
     document.querySelectorAll('.stats b[data-n]').forEach(countUp);
@@ -1167,7 +1432,7 @@ function tween(el, to, from = 0, fmt = money, dur = 650) {
 // ส่วนต่างๆ ของหน้าค่อยๆ ปรากฏเมื่อเลื่อนมาถึง
 function revealOnScroll(root) {
   if (reduceMotion() || !('IntersectionObserver' in window)) return;
-  const els = root.querySelectorAll('.specs > div, dl, .steps li, .panel, .similar .mini');
+  const els = root.querySelectorAll('.specs > div, dl, .steps li, .panel, .similar .mini, .dev-wrap');
   const io = new IntersectionObserver(entries => entries.forEach(en => {
     if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
   }), { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
